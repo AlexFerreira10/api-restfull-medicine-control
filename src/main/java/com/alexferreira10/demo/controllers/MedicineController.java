@@ -11,6 +11,8 @@ import com.alexferreira10.demo.model.entities.Medicine;
 import com.alexferreira10.demo.model.entities.dto.MedicineDTO;
 import com.alexferreira10.demo.model.services.MedicineService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/medicines")
 public class MedicineController {
@@ -19,7 +21,7 @@ public class MedicineController {
 	private MedicineService service;
 	
 	@PostMapping
-	public ResponseEntity<Medicine> insert(@RequestBody MedicineDTO data) {
+	public ResponseEntity<Medicine> insert(@RequestBody @Valid MedicineDTO data) {
 		Medicine obj = service.insert(new Medicine(data));
 		return ResponseEntity.ok().body(obj);
 	}

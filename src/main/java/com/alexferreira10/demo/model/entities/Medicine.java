@@ -1,6 +1,7 @@
 package com.alexferreira10.demo.model.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import com.alexferreira10.demo.model.entities.dto.MedicineDTO;
 import com.alexferreira10.demo.model.enums.Laboratory;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 //@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 public class Medicine implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,77 +37,89 @@ public class Medicine implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TypeWay way;
 	private String batch;
-	private String validaty;
+	private Integer quantify;
+	private LocalDate validaty;
 	
 	@Enumerated(EnumType.STRING)
 	private Laboratory laboratory;
 	
-	public Medicine() {
-	}
 	
 	public Medicine(MedicineDTO data) {
 		this.name = data.name();
 		this.way = data.way();
 		this.batch = data.batch();
+		this.quantify = data.quantify();
 		this.validaty = data.validaty();
 		this.laboratory = data.laboratory();
 	}
 
-	public Medicine(Long id, String name, TypeWay way, String batch, String validaty, Laboratory laboratory) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.way = way;
-		this.batch = batch;
-		this.validaty = validaty;
-		this.laboratory = laboratory;
-	}
-	
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBatch() {
-        return batch;
-    }
-
-    public void setBatch(String batch) {
-        this.batch = batch;
-    }
-
-    public String getValidaty() {
-        return validaty;
-    }
-
-    public void setValidaty(String validaty) {
-        this.validaty = validaty;
-    }
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	public TypeWay getWay() {
 		return way;
 	}
 
+
 	public void setWay(TypeWay way) {
 		this.way = way;
 	}
+
+
+	public String getBatch() {
+		return batch;
+	}
+
+
+	public void setBatch(String batch) {
+		this.batch = batch;
+	}
+
+
+	public Integer getQuantify() {
+		return quantify;
+	}
+
+
+	public void setQuantify(Integer quantify) {
+		this.quantify = quantify;
+	}
+
+
+	public LocalDate getValidaty() {
+		return validaty;
+	}
+
+
+	public void setValidaty(LocalDate validaty) {
+		this.validaty = validaty;
+	}
+
 
 	public Laboratory getLaboratory() {
 		return laboratory;
 	}
 
+
 	public void setLaboratory(Laboratory laboratory) {
 		this.laboratory = laboratory;
-	} 
+	}
 }

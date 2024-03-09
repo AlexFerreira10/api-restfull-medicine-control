@@ -1,4 +1,4 @@
-package com.alexferreira10.demo.services.exceptions;
+package com.alexferreira10.demo.model.services.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
 

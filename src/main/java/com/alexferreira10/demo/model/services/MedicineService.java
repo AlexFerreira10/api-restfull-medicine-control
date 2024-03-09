@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.alexferreira10.demo.model.entities.Medicine;
 import com.alexferreira10.demo.model.repositories.MedicineRepository;
-import com.alexferreira10.demo.services.exceptions.ResourceNotFoundException;
+import com.alexferreira10.demo.model.services.exceptions.ResourceNotFoundException;
+
 
 @Service
 public class MedicineService {
