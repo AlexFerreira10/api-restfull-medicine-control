@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 
 //DTO : show only what I want
-public record MedicineDTO(
+public record MedicineInsertDTO(
 		//Not permit to save empty values
 		@NotBlank
 		String name,

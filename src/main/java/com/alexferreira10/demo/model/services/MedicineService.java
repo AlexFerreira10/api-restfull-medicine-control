@@ -8,6 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.alexferreira10.demo.model.entities.Medicine;
+import com.alexferreira10.demo.model.entities.dto.MedicineUpdateDTO;
 import com.alexferreira10.demo.model.repositories.MedicineRepository;
 import com.alexferreira10.demo.model.services.exceptions.ResourceNotFoundException;
 
@@ -40,7 +41,7 @@ public class MedicineService {
 		}
 	}
 	
-	public Medicine update(Long id, Medicine obj) {
+	public Medicine update(Long id, MedicineUpdateDTO obj) {
 		try {
 			// Does not go to the database, just monitors
 			Medicine entity = repository.getReferenceById(id);
@@ -51,11 +52,11 @@ public class MedicineService {
 		}
 	}
 
-	private void updateData(Medicine entity, Medicine obj) {
-		entity.setName(obj.getName());
-		entity.setWay(obj.getWay());
-		entity.setBatch(obj.getBatch());
-		entity.setValidaty(obj.getValidaty());
-		entity.setLaboratory(obj.getLaboratory());
+	private void updateData(Medicine entity, MedicineUpdateDTO obj) {
+		entity.setName(obj.name());
+		entity.setWay(obj.way());
+	//	entity.setBatch(obj.getBatch());
+	//	entity.setValidaty(obj.getValidaty());
+		entity.setLaboratory(obj.laboratory());
 	}
 }

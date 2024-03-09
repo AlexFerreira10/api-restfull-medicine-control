@@ -3,7 +3,7 @@ package com.alexferreira10.demo.model.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import com.alexferreira10.demo.model.entities.dto.MedicineDTO;
+import com.alexferreira10.demo.model.entities.dto.MedicineInsertDTO;
 import com.alexferreira10.demo.model.enums.Laboratory;
 import com.alexferreira10.demo.model.enums.TypeWay;
 
@@ -33,18 +33,18 @@ public class Medicine implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
 	@Enumerated(EnumType.STRING)
 	private TypeWay way;
 	private String batch;
 	private Integer quantify;
 	private LocalDate validaty;
-	
 	@Enumerated(EnumType.STRING)
 	private Laboratory laboratory;
 	
+	public Medicine() {
+	}
 	
-	public Medicine(MedicineDTO data) {
+	public Medicine(MedicineInsertDTO data) {
 		this.name = data.name();
 		this.way = data.way();
 		this.batch = data.batch();
