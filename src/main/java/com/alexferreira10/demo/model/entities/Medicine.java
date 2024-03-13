@@ -33,18 +33,23 @@ public class Medicine implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
 	@Enumerated(EnumType.STRING)
 	private TypeWay way;
 	private String batch;
 	private Integer quantify;
 	private LocalDate validaty;
+	
 	@Enumerated(EnumType.STRING)
 	private Laboratory laboratory;
+	
+	private Boolean active;
 	
 	public Medicine() {
 	}
 	
 	public Medicine(MedicineInsertDTO data) {
+		this.setActive(true);
 		this.name = data.name();
 		this.way = data.way();
 		this.batch = data.batch();
@@ -121,5 +126,21 @@ public class Medicine implements Serializable {
 
 	public void setLaboratory(Laboratory laboratory) {
 		this.laboratory = laboratory;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public void inactivate() {
+		this.active = false;
+	}
+
+	public void activate() {
+		this.active = true;
 	}
 }

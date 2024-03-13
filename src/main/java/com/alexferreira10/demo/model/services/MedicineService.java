@@ -1,5 +1,6 @@
 package com.alexferreira10.demo.model.services;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.alexferreira10.demo.model.entities.Medicine;
+import com.alexferreira10.demo.model.entities.dto.MedicineFindDTO;
 import com.alexferreira10.demo.model.entities.dto.MedicineUpdateDTO;
 import com.alexferreira10.demo.model.repositories.MedicineRepository;
 import com.alexferreira10.demo.model.services.exceptions.ResourceNotFoundException;
@@ -58,5 +60,14 @@ public class MedicineService {
 	//	entity.setBatch(obj.getBatch());
 	//	entity.setValidaty(obj.getValidaty());
 		entity.setLaboratory(obj.laboratory());
+	}
+	
+	public Medicine getReferenceById(Long id) {
+		return repository.getReferenceById(id);
+	}
+
+	public List<Medicine> findAllByActiveTrue(){
+		return repository.findAll().stream().filter(x -> x.getActive() == true).toList();
+	
 	}
 }
