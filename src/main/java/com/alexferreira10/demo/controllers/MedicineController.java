@@ -35,8 +35,8 @@ public class MedicineController {
 	@Transactional
 	public ResponseEntity<MedicineInsertDTO> insert(@RequestBody @Valid MedicineInsertDTO data) {
 		Medicine obj = service.insert(new Medicine(data));
-		//Return 201 code in insertion
-		//Rest Default 
+		// Return 201 code in insertion
+		// Rest Default
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(data);
 	}
@@ -57,31 +57,33 @@ public class MedicineController {
 	// Do rollback, case need
 	@Transactional
 	public ResponseEntity<MedicineFindDTO> update(@PathVariable Long id, @RequestBody @Valid MedicineUpdateDTO data) {
-		MedicineFindDTO obj = new  MedicineFindDTO(service.update(id, data));
+		MedicineFindDTO obj = new MedicineFindDTO(service.update(id, data));
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@DeleteMapping("/inactivate/{id}")
 	@Transactional
-	public ResponseEntity<Void> inactivate(@PathVariable Long id){
+	public ResponseEntity<Void> inactivate(@PathVariable Long id) {
 		Medicine obj = service.getReferenceById(id);
 		obj.inactivate();
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping("/activate/{id}")
 	@Transactional
-	public ResponseEntity<Void> activate(@PathVariable Long id){
+	public ResponseEntity<Void> activate(@PathVariable Long id) {
+		// Raise an exception; Throw EntityNotFoundException
+		// Spring get and use 500 error
 		Medicine obj = service.getReferenceById(id);
 		obj.activate();
 		return ResponseEntity.noContent().build();
 	}
-	
+
 }
