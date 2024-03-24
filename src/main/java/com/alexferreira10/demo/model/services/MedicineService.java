@@ -1,16 +1,11 @@
 package com.alexferreira10.demo.model.services;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.alexferreira10.demo.model.entities.Medicine;
-import com.alexferreira10.demo.model.entities.dto.MedicineFindDTO;
 import com.alexferreira10.demo.model.entities.dto.MedicineUpdateDTO;
 import com.alexferreira10.demo.model.repositories.MedicineRepository;
 

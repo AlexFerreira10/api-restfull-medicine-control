@@ -1,0 +1,3 @@
+ALTER TABLE tb_medicine
+MODIFY COLUMN way INT,
+MODIFY COLUMN laboratory INT;
