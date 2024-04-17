@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.alexferreira10.demo.model.entities.dto.MedicineInsertDTO;
-import com.alexferreira10.demo.model.enums.Laboratory;
-import com.alexferreira10.demo.model.enums.TypeWay;
+import com.alexferreira10.demo.model.entities.enums.Laboratory;
+import com.alexferreira10.demo.model.entities.enums.TypeWay;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.alexferreira10.demo.model.enums;
+package com.alexferreira10.demo.model.entities.enums;
 
 public enum Laboratory {
 	//Automatically number to avoid conflicts in the database when changing the OrderStatus sequence

@@ -3,8 +3,8 @@ package com.alexferreira10.demo.model.entities.dto;
 import java.time.LocalDate;
 
 import com.alexferreira10.demo.model.entities.Medicine;
-import com.alexferreira10.demo.model.enums.Laboratory;
-import com.alexferreira10.demo.model.enums.TypeWay;
+import com.alexferreira10.demo.model.entities.enums.Laboratory;
+import com.alexferreira10.demo.model.entities.enums.TypeWay;
 
 public record MedicineFindDTO(
         Long id,
