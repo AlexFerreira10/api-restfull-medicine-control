@@ -3,10 +3,9 @@ package com.alexferreira10.demo.config;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import com.alexferreira10.demo.model.entities.user.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -24,12 +23,26 @@ public class TokenService {
 		    var algorithm = Algorithm.HMAC256(secret);
 		    return JWT.create()
 		        .withIssuer("Medicines_API")
-		        .withSubject(user.getLogin())
+		        .withSubject(user.getUsername())
 		        .withExpiresAt(expirationTime())
-		        //.withClaim("ID", user.getId()
 		        .sign(algorithm);
 		} catch (JWTCreationException exception){
 		    throw new RuntimeException("Error generate token", exception);
+		}
+	}
+
+	public String generateSubject(String tokenJWT) {
+		try {
+			Algorithm algorithm = Algorithm.HMAC256(secret);
+			return JWT.require(algorithm)
+					// specify any specific claim validations
+					.withIssuer("Medicines_API")
+					// reusable verifier instance
+					.build()
+					.verify(tokenJWT)
+					.getSubject();
+		} catch (JWTVerificationException exception){
+			throw new RuntimeException("Invalid or expired JWT token");
 		}
 	}
 	

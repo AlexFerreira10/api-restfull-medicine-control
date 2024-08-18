@@ -26,7 +26,6 @@ public class ExceptionHandling {
 	}
 
 	public record DataError(String msg, String field) {
-
 		public DataError(FieldError error) {
 			this(error.getField(), error.getDefaultMessage());
 		}
