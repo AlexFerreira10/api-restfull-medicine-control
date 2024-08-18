@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.alexferreira10.demo.model.entities.Medicine;
-import com.alexferreira10.demo.model.entities.dto.MedicineFindDTO;
-import com.alexferreira10.demo.model.entities.dto.MedicineInsertDTO;
-import com.alexferreira10.demo.model.entities.dto.MedicineUpdateDTO;
-import com.alexferreira10.demo.model.services.MedicineService;
+import com.alexferreira10.demo.model.entities.medicine.Medicine;
+import com.alexferreira10.demo.model.entities.medicine.MedicineFindDTO;
+import com.alexferreira10.demo.model.entities.medicine.RegisterMedicinetDTO;
+import com.alexferreira10.demo.model.entities.medicine.MedicineUpdateDTO;
+import com.alexferreira10.demo.model.entities.medicine.MedicineService;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -33,7 +33,7 @@ public class MedicineController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<MedicineInsertDTO> insert(@RequestBody @Valid MedicineInsertDTO data) {
+	public ResponseEntity<RegisterMedicinetDTO> insert(@RequestBody @Valid RegisterMedicinetDTO data) {
 		Medicine obj = service.insert(new Medicine(data));
 		// Return 201 code in insertion
 		// Rest Default

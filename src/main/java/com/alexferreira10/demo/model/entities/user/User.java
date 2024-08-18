@@ -1,4 +1,4 @@
-package com.alexferreira10.demo.model.entities;
+package com.alexferreira10.demo.model.entities.user;
 
 import java.io.Serializable;
 import java.util.Collection;

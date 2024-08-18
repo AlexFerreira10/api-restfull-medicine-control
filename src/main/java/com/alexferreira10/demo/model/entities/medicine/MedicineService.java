@@ -1,12 +1,10 @@
-package com.alexferreira10.demo.model.services;
+package com.alexferreira10.demo.model.entities.medicine;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alexferreira10.demo.model.entities.Medicine;
-import com.alexferreira10.demo.model.entities.dto.MedicineUpdateDTO;
 import com.alexferreira10.demo.model.repositories.MedicineRepository;
 
 @Service
@@ -35,18 +33,9 @@ public class MedicineService {
 	}
 
 	public Medicine update(Long id, MedicineUpdateDTO obj) {
-		// Does not go to the database, just monitors
 		Medicine entity = repository.getReferenceById(id);
-		updateData(entity, obj);
+		entity.updateData(obj);
 		return repository.save(entity);
-	}
-
-	private void updateData(Medicine entity, MedicineUpdateDTO obj) {
-		entity.setName(obj.name());
-		entity.setWay(obj.way());
-		// entity.setBatch(obj.getBatch());
-		// entity.setValidaty(obj.getValidaty());
-		entity.setLaboratory(obj.laboratory());
 	}
 
 	public Medicine getReferenceById(Long id) {
