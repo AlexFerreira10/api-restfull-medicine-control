@@ -2,7 +2,7 @@ package com.alexferreira10.demo.controllers;
 
 import java.net.URI;
 import java.util.List;
-
+import com.alexferreira10.demo.model.entities.medicine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,14 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.alexferreira10.demo.model.entities.medicine.Medicine;
-import com.alexferreira10.demo.model.entities.medicine.MedicineFindDTO;
-import com.alexferreira10.demo.model.entities.medicine.RegisterMedicinetDTO;
-import com.alexferreira10.demo.model.entities.medicine.MedicineUpdateDTO;
-import com.alexferreira10.demo.model.entities.medicine.MedicineService;
-
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
@@ -32,58 +24,46 @@ public class MedicineController {
 	private MedicineService service;
 
 	@PostMapping
-	@Transactional
-	public ResponseEntity<RegisterMedicinetDTO> insert(@RequestBody @Valid RegisterMedicinetDTO data) {
-		Medicine obj = service.insert(new Medicine(data));
-		// Return 201 code in insertion
-		// Rest Default
+	public ResponseEntity<DataMedicineDto> insert(@RequestBody @Valid RegisterMedicinetDTO data) {
+		Medicine obj = service.insert(data);
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(data);
+
+		return ResponseEntity.created(uri).body(new DataMedicineDto(obj.getId(),obj.getName(), obj.getWay(), obj.getBatch()));
 	}
 
 	@GetMapping
 	public ResponseEntity<List<MedicineFindDTO>> findAll() {
-		return ResponseEntity.ok().body(service.findAllByActiveTrue().stream().map(MedicineFindDTO::new).toList());
+		var lista = service.findAllByActiveTrue().stream().map(MedicineFindDTO::new).toList();
+
+		return ResponseEntity.ok(lista);
 	}
 
-	// @PathVariable show spring the restriction clause
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<MedicineFindDTO> findById(@PathVariable Long id) {
-		MedicineFindDTO obj = new MedicineFindDTO(service.findById(id));
-		return ResponseEntity.ok().body(obj);
+		var obj = new MedicineFindDTO(service.findById(id));
+
+		return ResponseEntity.ok(obj);
 	}
 
 	@PutMapping(value = "/{id}")
-	// Do rollback, case need
-	@Transactional
-	public ResponseEntity<MedicineFindDTO> update(@PathVariable Long id, @RequestBody @Valid MedicineUpdateDTO data) {
-		MedicineFindDTO obj = new MedicineFindDTO(service.update(id, data));
-		return ResponseEntity.ok().body(obj);
-	}
+	public ResponseEntity<MedicineFindDTO> update(@RequestBody @Valid MedicineUpdateDTO data) {
+		var obj = new MedicineFindDTO(service.update(data));
 
-	@DeleteMapping(value = "/{id}")
-	@Transactional
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok(obj);
 	}
 
 	@DeleteMapping("/inactivate/{id}")
-	@Transactional
 	public ResponseEntity<Void> inactivate(@PathVariable Long id) {
-		Medicine obj = service.getReferenceById(id);
-		obj.inactivate();
+		service.inactivate(id);
+
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/activate/{id}")
-	@Transactional
-	public ResponseEntity<Void> activate(@PathVariable Long id) {
-		// Raise an exception; Throw EntityNotFoundException
-		// Spring get and use 500 error
-		Medicine obj = service.getReferenceById(id);
-		obj.activate();
-		return ResponseEntity.noContent().build();
-	}
+	public ResponseEntity<MedicineFindDTO> activate(@PathVariable Long id) {
+		var obj = new MedicineFindDTO(service.activate(id));
 
+		return ResponseEntity.ok(obj);
+	}
 }

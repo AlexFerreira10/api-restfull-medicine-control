@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alexferreira10.demo.model.entities.user.User;
 import com.alexferreira10.demo.config.dto.DataAuthenticationDTO;
 import com.alexferreira10.demo.config.dto.DataTokenJWTDTO;
-import com.alexferreira10.demo.model.services.TokenService;
+import com.alexferreira10.demo.config.TokenService;
 
 import jakarta.validation.Valid;
 

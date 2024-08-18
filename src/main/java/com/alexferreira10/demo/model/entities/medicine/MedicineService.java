@@ -1,11 +1,9 @@
 package com.alexferreira10.demo.model.entities.medicine;
 
 import java.util.List;
-
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.alexferreira10.demo.model.repositories.MedicineRepository;
 
 @Service
 public class MedicineService {
@@ -13,37 +11,48 @@ public class MedicineService {
 	@Autowired
 	MedicineRepository repository;
 
-	public List<Medicine> findAll() {
-		return repository.findAll();
-	}
-
 	public Medicine findById(Long id) {
-		var medicine = repository.getReferenceById(id);
-		return medicine;
-	}
-
-	public Medicine insert(Medicine obj) {
-		return repository.save(obj);
-	}
-
-	public void delete(Long id) {
-
-		repository.deleteById(id);
-
-	}
-
-	public Medicine update(Long id, MedicineUpdateDTO obj) {
-		Medicine entity = repository.getReferenceById(id);
-		entity.updateData(obj);
-		return repository.save(entity);
-	}
-
-	public Medicine getReferenceById(Long id) {
+		verifyId(id);
 		return repository.getReferenceById(id);
 	}
 
-	public List<Medicine> findAllByActiveTrue() {
-		return repository.findAll().stream().filter(x -> x.getActive() == true).toList();
+	@Transactional
+	public Medicine insert(RegisterMedicinetDTO data) {
+		var medicine = new Medicine(data);
 
+		return repository.save(medicine);
+	}
+
+	@Transactional
+	public Medicine update(MedicineUpdateDTO data) {
+		verifyId(data.id());
+		Medicine entity = repository.getReferenceById(data.id());
+		entity.updateData(data);
+		return repository.save(entity);
+	}
+
+	public List<Medicine> findAllByActiveTrue() {
+		return repository.findAll().stream().filter(x -> x.getActive().equals(true)).toList();
+	}
+
+	@Transactional
+	public Medicine activate(Long id) {
+		verifyId(id);
+		Medicine obj = repository.getReferenceById(id);
+		obj.setActive(true);
+		return obj;
+	}
+
+	@Transactional
+	public void inactivate(Long id) {
+		verifyId(id);
+		Medicine obj = repository.getReferenceById(id);
+		obj.setActive(false);
+	}
+
+	public void verifyId(Long id) {
+		if (!repository.existsById(id)) {
+			throw new RuntimeException("Medicine not found");
+		}
 	}
 }

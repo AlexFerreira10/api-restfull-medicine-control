@@ -1,9 +1,7 @@
-package com.alexferreira10.demo.model.repositories;
+package com.alexferreira10.demo.model.entities.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.alexferreira10.demo.model.entities.user.User;
 
 public interface UserRepository extends JpaRepository<User,Long>{
 

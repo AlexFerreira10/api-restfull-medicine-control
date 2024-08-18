@@ -1,4 +1,4 @@
-package com.alexferreira10.demo.model.services;
+package com.alexferreira10.demo.config;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

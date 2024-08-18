@@ -1,8 +1,8 @@
 package com.alexferreira10.demo.model.entities.medicine;
 
 import java.time.LocalDate;
-import com.alexferreira10.demo.model.entities.enums.Laboratory;
-import com.alexferreira10.demo.model.entities.enums.TypeWay;
+import com.alexferreira10.demo.model.entities.medicine.enums.Laboratory;
+import com.alexferreira10.demo.model.entities.medicine.enums.TypeWay;
 import jakarta.persistence.*;
 import lombok.*;
 
