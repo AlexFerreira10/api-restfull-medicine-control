@@ -39,9 +39,6 @@ public class Medicine implements Serializable {
 
 	private Boolean active;
 
-	public Medicine() {
-	}
-
 	public Medicine(MedicineInsertDTO data) {
 		this.setActive(true);
 		this.name = data.name();
